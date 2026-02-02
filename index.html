@@ -1,3 +1,140 @@
-<html>
-    <h1>Happy birthday, girl <3</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Rydah 💜</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Floating decorations -->
+    <div class="floating-decorations" aria-hidden="true">
+        <span class="float-item">✿</span>
+        <span class="float-item">♥</span>
+        <span class="float-item">✦</span>
+        <span class="float-item">❀</span>
+        <span class="float-item">♡</span>
+        <span class="float-item">✿</span>
+        <span class="float-item">✦</span>
+        <span class="float-item">❀</span>
+    </div>
+
+    <!-- Confetti container (will be filled by JS) -->
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <!-- Main wrapper -->
+    <main class="container">
+        
+        <!-- ENVELOPE SCENE -->
+        <section class="envelope-scene" id="envelopeScene">
+            <p class="tap-hint">tap to open</p>
+            
+            <div class="envelope-wrapper" id="envelopeWrapper">
+                <!-- Envelope -->
+                <div class="envelope" id="envelope">
+                    <!-- Envelope flap (triangle) -->
+                    <div class="envelope-flap"></div>
+                    
+                    <!-- Envelope body -->
+                    <div class="envelope-body">
+                        <!-- Heart seal -->
+                        <div class="envelope-seal">♥</div>
+                    </div>
+                    
+                    <!-- Card peeking out -->
+                    <div class="card-peek" id="cardPeek">
+                        <span>for you</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CARD SCENE (hidden initially) -->
+        <section class="card-scene hidden" id="cardScene">
+            <div class="card" id="card">
+                <!-- Card Front -->
+                <div class="card-cover" id="cardCover">
+                    <div class="card-cover-content">
+                        <span class="card-decoration">✿ ♥ ✿</span>
+                        <h2>Happy Birthday</h2>
+                        <p class="card-name">Rydah</p>
+                        <span class="card-decoration">✿ ♥ ✿</span>
+                    </div>
+                    <p class="tap-hint-card">tap to open</p>
+                </div>
+
+                <!-- Card Inside -->
+                <div class="card-inside hidden" id="cardInside">
+                    <div class="card-message">
+                        <p class="message-main">Happy Birthday, Rydah! 💜</p>
+                        <p class="message-sub">Here's a little something to remind you how special you are...</p>
+                    </div>
+
+                    <!-- Photo Gallery -->
+                    <div class="photo-gallery">
+                        <div class="polaroid-stack" id="polaroidStack">
+                            <!-- Polaroid 1 -->
+                            <div class="polaroid" data-index="0">
+                                <div class="polaroid-image">
+                                    <img src="images/rydah1.jpg" alt="Rydah memory 1">
+                                </div>
+                                <div class="polaroid-caption">nom noms</div>
+                            </div>
+                            
+                            <!-- Polaroid 2 -->
+                            <div class="polaroid" data-index="1">
+                                <div class="polaroid-image">
+                                    <img src="images/rydah2.jpg" alt="Rydah memory 2">
+                                </div>
+                                <div class="polaroid-caption">prettiest and smartest doctor</div>
+                            </div>
+                            
+                            <!-- Polaroid 3 -->
+                            <div class="polaroid" data-index="2">
+                                <div class="polaroid-image">
+                                    <img src="images/rydah3.JPG" alt="Rydah memory 3">
+                                </div>
+                                <div class="polaroid-caption">;)</div>
+                            </div>
+                            
+                            <!-- Polaroid 4 -->
+                            <div class="polaroid" data-index="3">
+                                <div class="polaroid-image">
+                                    <img src="images/rydah4.jpg" alt="Rydah memory 4">
+                                </div>
+                                <div class="polaroid-caption">look at this pretty cookie</div>
+                            </div>
+                            
+                            <!-- Polaroid 5 -->
+                            <div class="polaroid" data-index="4">
+                                <div class="polaroid-image">
+                                    <img src="images/rydah5.jpg" alt="Rydah memory 5">
+                                </div>
+                                <div class="polaroid-caption">mlem</div>
+                            </div>
+                        </div>
+
+                        <div class="gallery-nav">
+                            <button class="nav-btn" id="prevBtn">←</button>
+                            <span class="photo-counter"><span id="currentPhoto">1</span> / 5</span>
+                            <button class="nav-btn" id="nextBtn">→</button>
+                        </div>
+                    </div>
+
+                    <!-- Final message -->
+                    <div class="final-message">
+                        <p>wishing you the happiest of birthdays 🎂</p>
+                        <p class="signature">— with love ♥</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
 </html>

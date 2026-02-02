@@ -1,0 +1,660 @@
+/* ========================================
+   🎨 COLOR PALETTE & VARIABLES
+   ======================================== */
+:root {
+    /* Primary - Soft Purple */
+    --purple-light: #e8dff5;
+    --purple-main: #c9b8e0;
+    --purple-mid: #b49fcc;
+    --purple-dark: #957bb5;
+    --purple-deep: #7c5fa8;
+    
+    /* Secondary - Cream & Warm */
+    --cream: #fdf8f3;
+    --cream-dark: #f5ede3;
+    --warm-white: #fffbf7;
+    
+    /* Accents */
+    --pink-soft: #f2d4dc;
+    --pink-accent: #e8a0b4;
+    --yellow-soft: #fff5e0;
+    
+    /* Text */
+    --text-dark: #5c4a6e;
+    --text-medium: #7a6889;
+    --text-light: #a292b3;
+    
+    /* Shadows & Effects */
+    --shadow-soft: rgba(149, 123, 181, 0.15);
+    --shadow-medium: rgba(149, 123, 181, 0.25);
+    
+    /* Sizing */
+    --envelope-width: min(85vw, 360px);
+    --card-width: min(90vw, 400px);
+}
+
+/* ========================================
+   🔧 RESET & BASE
+   ======================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background: linear-gradient(145deg, var(--cream) 0%, var(--purple-light) 50%, var(--cream-dark) 100%);
+    min-height: 100vh;
+    min-height: 100dvh;
+    color: var(--text-dark);
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Subtle noise texture overlay */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.03;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    z-index: 1000;
+}
+
+/* ========================================
+   ✨ FLOATING DECORATIONS
+   ======================================== */
+.floating-decorations {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.float-item {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.3;
+    color: var(--purple-mid);
+    animation: floatAround 20s infinite ease-in-out;
+}
+
+.float-item:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+.float-item:nth-child(2) { top: 20%; right: 10%; animation-delay: -3s; color: var(--pink-accent); }
+.float-item:nth-child(3) { top: 60%; left: 8%; animation-delay: -5s; }
+.float-item:nth-child(4) { top: 75%; right: 5%; animation-delay: -8s; color: var(--pink-accent); }
+.float-item:nth-child(5) { top: 40%; left: 3%; animation-delay: -10s; }
+.float-item:nth-child(6) { top: 85%; left: 15%; animation-delay: -12s; color: var(--pink-accent); }
+.float-item:nth-child(7) { top: 30%; right: 3%; animation-delay: -15s; }
+.float-item:nth-child(8) { top: 50%; right: 8%; animation-delay: -18s; color: var(--pink-accent); }
+
+@keyframes floatAround {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(10px, -15px) rotate(5deg); }
+    50% { transform: translate(-5px, 10px) rotate(-3deg); }
+    75% { transform: translate(8px, 5px) rotate(3deg); }
+}
+
+/* ========================================
+   🎊 CONFETTI
+   ======================================== */
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.confetti {
+    position: absolute;
+    top: -10px;
+    opacity: 0;
+    animation: confettiFall 4s ease-out forwards;
+}
+
+@keyframes confettiFall {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(720deg) scale(0.5);
+    }
+}
+
+/* ========================================
+   📦 CONTAINER
+   ======================================== */
+.container {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* ========================================
+   ✉️ ENVELOPE SCENE
+   ======================================== */
+.envelope-scene {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.tap-hint {
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    color: var(--text-light);
+    animation: gentleBounce 2s ease-in-out infinite;
+}
+
+@keyframes gentleBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.envelope-wrapper {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.envelope-wrapper:hover {
+    transform: scale(1.02);
+}
+
+.envelope-wrapper:active {
+    transform: scale(0.98);
+}
+
+/* Envelope Structure */
+.envelope {
+    width: var(--envelope-width);
+    aspect-ratio: 1.5 / 1;
+    position: relative;
+    filter: drop-shadow(0 10px 30px var(--shadow-medium));
+}
+
+/* Envelope Body */
+.envelope-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    background: linear-gradient(180deg, var(--purple-main) 0%, var(--purple-mid) 100%);
+    border-radius: 0 0 12px 12px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Heart Seal */
+.envelope-seal {
+    font-size: 2.5rem;
+    color: var(--pink-accent);
+    text-shadow: 0 2px 4px var(--shadow-soft);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Envelope Flap */
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(180deg, var(--purple-light) 0%, var(--purple-main) 100%);
+    clip-path: polygon(0 40%, 50% 100%, 100% 40%, 100% 0, 0 0);
+    z-index: 3;
+    transform-origin: top center;
+    transition: transform 0.6s ease-in-out;
+}
+
+/* Inner shadow on flap */
+.envelope-flap::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    width: 80%;
+    height: 30%;
+    background: linear-gradient(to top, var(--shadow-soft), transparent);
+    clip-path: polygon(0 100%, 50% 0, 100% 100%);
+}
+
+/* Card peeking */
+.card-peek {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 75%;
+    height: 40%;
+    background: var(--warm-white);
+    border-radius: 8px 8px 0 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 -2px 10px var(--shadow-soft);
+    transition: transform 0.6s ease-in-out;
+}
+
+.card-peek span {
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem;
+    color: var(--text-light);
+}
+
+/* Envelope Opening Animation */
+.envelope-wrapper.opening .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+.envelope-wrapper.opening .card-peek {
+    transform: translateX(-50%) translateY(-80%);
+}
+
+/* ========================================
+   💌 CARD SCENE
+   ======================================== */
+.card-scene {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.card-scene.hidden {
+    display: none;
+}
+
+.card {
+    width: var(--card-width);
+    perspective: 1000px;
+}
+
+/* Card Cover (Front) */
+.card-cover {
+    background: linear-gradient(145deg, var(--warm-white) 0%, var(--cream) 100%);
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    box-shadow: 
+        0 4px 20px var(--shadow-medium),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative border */
+.card-cover::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    border: 2px dashed var(--purple-light);
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+.card-cover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px var(--shadow-medium);
+}
+
+.card-cover-content {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.card-decoration {
+    display: block;
+    font-size: 1.2rem;
+    color: var(--purple-mid);
+    letter-spacing: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.card-cover h2 {
+    font-family: 'Caveat', cursive;
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: var(--purple-deep);
+    margin: 1rem 0 0.5rem;
+    line-height: 1.1;
+}
+
+.card-name {
+    font-family: 'Caveat', cursive;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--pink-accent);
+    margin: 0;
+}
+
+.tap-hint-card {
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-top: 2rem;
+    animation: gentleBounce 2s ease-in-out infinite;
+}
+
+/* Card Inside */
+.card-inside {
+    background: linear-gradient(180deg, var(--warm-white) 0%, var(--cream) 100%);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 4px 20px var(--shadow-medium);
+    animation: cardReveal 0.6s ease-out;
+}
+
+.card-inside.hidden {
+    display: none;
+}
+
+@keyframes cardReveal {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Card Message */
+.card-message {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px dashed var(--purple-light);
+}
+
+.message-main {
+    font-family: 'Caveat', cursive;
+    font-size: 2rem;
+    color: var(--purple-deep);
+    margin-bottom: 0.5rem;
+}
+
+.message-sub {
+    font-size: 0.95rem;
+    color: var(--text-medium);
+    line-height: 1.5;
+}
+
+/* ========================================
+   📸 PHOTO GALLERY
+   ======================================== */
+.photo-gallery {
+    margin: 1.5rem 0;
+}
+
+.polaroid-stack {
+    position: relative;
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.polaroid {
+    position: absolute;
+    background: white;
+    padding: 10px 10px 35px 10px;
+    border-radius: 4px;
+    box-shadow: 
+        0 4px 15px var(--shadow-medium),
+        0 1px 3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: scale(0.8);
+    width: min(260px, 75vw);
+}
+
+.polaroid.active {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    z-index: 10;
+}
+
+.polaroid.prev {
+    opacity: 0.5;
+    transform: scale(0.85) translateX(-60%) rotate(-8deg);
+    z-index: 5;
+}
+
+.polaroid.next {
+    opacity: 0.5;
+    transform: scale(0.85) translateX(60%) rotate(8deg);
+    z-index: 5;
+}
+
+.polaroid-image {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border-radius: 2px;
+    background: var(--cream);
+}
+
+.polaroid-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.polaroid-caption {
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    color: var(--text-medium);
+    text-align: center;
+    margin-top: 8px;
+}
+
+/* Gallery Navigation */
+.gallery-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.nav-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--purple-mid);
+    background: var(--warm-white);
+    color: var(--purple-deep);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn:hover {
+    background: var(--purple-light);
+    transform: scale(1.05);
+}
+
+.nav-btn:active {
+    transform: scale(0.95);
+}
+
+.photo-counter {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    min-width: 50px;
+    text-align: center;
+}
+
+/* ========================================
+   💜 FINAL MESSAGE
+   ======================================== */
+.final-message {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 2px dashed var(--purple-light);
+}
+
+.final-message p {
+    font-size: 1rem;
+    color: var(--text-medium);
+    margin-bottom: 0.5rem;
+}
+
+.final-message .signature {
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: var(--pink-accent);
+    margin-top: 1rem;
+}
+
+/* ========================================
+   🙈 UTILITY CLASSES
+   ======================================== */
+.hidden {
+    display: none !important;
+}
+
+/* ========================================
+   📱 RESPONSIVE ADJUSTMENTS
+   ======================================== */
+
+/* Larger phones */
+@media (min-width: 390px) {
+    .card-cover h2 {
+        font-size: 3rem;
+    }
+    
+    .card-name {
+        font-size: 4rem;
+    }
+    
+    .polaroid {
+        width: min(280px, 70vw);
+    }
+    
+    .polaroid-stack {
+        height: 400px;
+    }
+}
+
+/* Tablets and Desktop */
+@media (min-width: 768px) {
+    :root {
+        --envelope-width: 420px;
+        --card-width: 480px;
+    }
+    
+    .float-item {
+        font-size: 2rem;
+    }
+    
+    .tap-hint {
+        font-size: 1.6rem;
+    }
+    
+    .envelope-seal {
+        font-size: 3rem;
+    }
+    
+    .card-cover {
+        padding: 4rem 3rem;
+    }
+    
+    .card-cover h2 {
+        font-size: 3.5rem;
+    }
+    
+    .card-name {
+        font-size: 4.5rem;
+    }
+    
+    .card-inside {
+        padding: 2.5rem 2rem;
+    }
+    
+    .message-main {
+        font-size: 2.4rem;
+    }
+    
+    .polaroid {
+        width: 300px;
+        padding: 12px 12px 40px 12px;
+    }
+    
+    .polaroid-stack {
+        height: 450px;
+    }
+    
+    .polaroid-caption {
+        font-size: 1.3rem;
+    }
+}
+
+/* Large Desktop */
+@media (min-width: 1024px) {
+    .envelope-wrapper:hover .envelope-seal {
+        transform: scale(1.2);
+    }
+    
+    .polaroid:hover {
+        box-shadow: 
+            0 8px 25px var(--shadow-medium),
+            0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
