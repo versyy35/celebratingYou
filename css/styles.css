@@ -554,6 +554,33 @@ body::before {
     margin-top: 1rem;
 }
 
+/* Read More Button */
+.read-more-btn {
+    display: inline-block;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--purple-deep);
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    margin: 1rem 0;
+    border: 2px solid var(--purple-mid);
+    border-radius: 25px;
+    background: var(--warm-white);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px var(--shadow-soft);
+}
+
+.read-more-btn:hover {
+    background: var(--purple-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-medium);
+}
+
+.read-more-btn:active {
+    transform: translateY(0);
+}
+
 /* ========================================
    🙈 UTILITY CLASSES
    ======================================== */
